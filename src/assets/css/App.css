@@ -1,0 +1,173 @@
+/*@use postcss-cssnext;*/
+
+:root {
+  --chrome-size: 25rem;
+  --chrome-padding: 2rem;
+  --chrome-corner: 0.75rem;
+  --key-gap: 0.75rem;
+  --key-size: calc((var(--chrome-size)*(1/4))-var(--key-gap)*0.75);
+  --key-corners: 0.5rem;
+  --key-background: #003333;
+  --key-color: rgba(255,255,255,0.85);
+  --key-operator-font-size: 2.5rem;
+  --display-background: #bbbbaa;
+  --casing: #669999;
+  --logo-color: #bb0000;
+
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('../fonts/LED-Calculator.ttf.eot');
+  src: url('../fonts/LED-Calculator.ttf.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body,html {
+  margin: 0;
+}
+
+.calculator-app {
+  font-family: 'Orbitron', sans-serif;
+  width: var(--chrome-size);
+  padding: var(--chrome-padding);
+  border-radius: var(--chrome-corner);
+  background: linear-gradient(color(var(--casing) lightness(+10%)), var(--casing));
+  position: relative;
+  &__logo {
+    font-size: 1.6rem;
+    position: absolute;
+    top: 8.5rem;
+    right: var(--chrome-padding);
+    color: var(--logo-color);
+  }
+}
+
+.display {
+  box-shadow: inset 0 0.2rem 0.2rem color(var(--display-background) lightness(-15%));
+  background: var(--display-background);
+  text-align: right;
+  border-radius: var(--chrome-corner);
+  &__number {
+    color: rgba(0,0,0,0.6);
+    text-shadow: 0 0 0.2em rgba(0,0,0,0.2);
+    font-size: 2.8rem;
+    padding: 0.5rem 1.25rem 0.2rem;
+    letter-spacing: 0.8rem;
+    transition: 0.3s all;
+  }
+  &__decimal {
+    position: absolute;
+    transform: translateX(-1.05rem);
+  }
+}
+
+.keys {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, var(--key-size));
+  grid-gap: var(--key-gap);
+  grid-template-areas:
+      "CE      AC    logo   logo"
+      "seven   eight nine   divide"
+      "four    five  six    multiply"
+      "one     two   three  add"
+      "decimal zero  equals subtract";
+  color: #444;
+  padding: 0;
+  &__item {
+    list-style: none;
+    height: var(--key-size);
+    &--operator {
+      grid-area: o;
+    }
+    &--clear-all {
+      grid-area: AC;
+    }
+    &--clear-entry {
+      grid-area: CE;
+    }
+    &--divide {
+      grid-area: divide;
+    }
+    &--multiply {
+      grid-area: multiply;
+    }
+    &--add {
+      grid-area: add;
+    }
+    &--subtract {
+      grid-area: subtract;
+    }
+    &--equals {
+      grid-area: equals;
+    }
+    &--decimal {
+      grid-area: decimal;
+    }
+    &--number {
+      &-0 {
+        grid-area: zero;
+      }
+      &-1 {
+        grid-area: one;
+      }
+      &-2 {
+        grid-area: two;
+      }
+      &-3 {
+        grid-area: three;
+      }
+      &-4 {
+        grid-area: four;
+      }
+      &-5 {
+        grid-area: five;
+      }
+      &-6 {
+        grid-area: six;
+      }
+      &-7 {
+        grid-area: seven;
+      }
+      &-8 {
+        grid-area: eight;
+      }
+      &-9 {
+        grid-area: nine;
+      }
+    }
+  }
+  &__key {
+    border-radius: var(--key-corners);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(color(var(--key-background) lightness(+2%)), var(--key-background));
+    color: var(--key-color);
+    transition: 0.3s all;
+    font-size: 2rem;
+    border: 0 none;
+    box-shadow: 0 0.1em color(var(--key-background) alpha(20%));
+    user-select: none;
+    &--add,
+    &--subtract,
+    &--divide,
+    &--multiply,
+    &--equals {
+      font-size: var(--key-operator-font-size);
+    }
+    &:hover {
+      transition: 0.1s all;
+      background: radial-gradient(color(var(--key-background) lightness(-2%)), var(--key-background));
+    }
+    &:focus {
+      outline: none;
+    }
+    &:active {
+      transition: 0.1s all;
+      box-shadow: 0 0 color(var(--key-background) alpha(20%));
+      transform: translate(0,0.1em);
+    }
+  }
+}
