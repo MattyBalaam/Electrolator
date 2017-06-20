@@ -1,3 +1,8 @@
+# Electrolator 
+Very basic calculator, attempting to simulate a classic basic Calculator.
+
+Built using.....
+
 # Modern and Minimal Electron + React Starter Kit
 _Electron, React, Webpack -- Modern and up-to-date, with a handful of quality of life features included_
 
